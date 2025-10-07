@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/><title>History &amp; Versions</title>
+<link href="styles.css" rel="stylesheet"/></head><body>
+<nav class="site-nav">
+<a class="logo" href="index.html">HTTP Research</a>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="history.html">History &amp; Versions</a></li>
+<li><a href="performance.html">Performance</a></li>
+<li><a href="privacy.html">Security &amp; Privacy</a></li>
+<li><a href="concepts.html">Key Concepts</a></li>
+<li><a href="references.html">References</a></li>
+<li><a href="about.html">About</a></li>
+</ul>
+</nav>
+<main class="container">
+<h1>History &amp; Versions</h1>
+<section class="card">
+<h2>Narrative (from Topic Page)</h2>
+<main>
+<h2>The Early Days of HTTP</h2>
+<p>
+      The Hypertext Transfer Protocol (HTTP) began in 1991 at CERN, created by <strong>Tim Berners-Lee</strong> as part of the first web system.
+      The initial version, called <strong>HTTP/0.9</strong>, could only retrieve simple HTML pages using a single command called <code>GET</code>.
+      There were no headers, status codes, or support for images and scripts. It was enough for the early web when pages were mostly plain text.
+    </p>
+<h2>Expansion and HTTP/1.0</h2>
+<p>
+      As the web grew, more features were needed. In 1996, <strong>HTTP/1.0</strong> introduced headers, allowing browsers and servers
+      to share details like content type and caching information. It also added methods such as <code>POST</code> so users could submit data
+      through forms. However, each file required a new connection, slowing websites with multiple images or resources.
+    </p>
+<h2>HTTP/1.1 and the Web Boom</h2>
+<p>
+Released in 1997, HTTP/1.1 became the foundation of the modern web. It allowed persistent connections, chunked data transfer, and the use of host headers—making it possible for many websites to share one IP address. This version powered the growth of the internet during the early 2000s and remains widely used today.
+</p>
+
+
+    \1Added persistent connections, chunked transfer encoding, and the Host header for virtual hosting. It improved efficiency but still suffered from head‑of‑line blocking that encouraged multiple parallel TCP connections.\3
+    <img src="images/evolution-of-http.png"/>
+</main>
+</section><section class="card">
+<div class="History">
+<p>HTTP/2 was standardized in 2015 and has seen broad adoption, although HTTP/1.1 remains widely used.
+    It introduces a binary framing layer that multiplexes multiple requests and responses over a single TCP connection,
+    along with HPACK header compression and request prioritization to reduce latency.
+    Many large providers adopted HTTP/2 to improve performance and network efficiency.
+    Because HTTP semantics are unchanged, it remains backward compatible with HTTP/1.1, enabling gradual, low-risk migration.</p>
+</div>
+<footer class="footer">
+</footer>
+</section><figure class="img-figure card"><img alt="HTTP/2 Multiplexing" src="images/http2pic.png"/><figcaption>HTTP/2 Multiplexing</figcaption></figure>
+<section class="card"><h2>Summary (from History &amp; Versions)</h2><h1>History &amp; Versions</h1><p>
+      HTTP began as a minimal protocol (0.9) and matured through 1.0/1.1 to HTTP/2 and HTTP/3.
+      Below is a feature snapshot of each version, along with brief notes.
+
+<table class="comparison">
+<caption>HTTP Version Comparison</caption>
+<thead>
+<tr>
+<th>Version</th>
+<th>Transport</th>
+<th>Key Features</th>
+<th>Limitations Addressed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP/0.9</td>
+<td>TCP</td>
+<td>GET only, HTML only</td>
+<td>Earliest prototype</td>
+</tr>
+<tr>
+<td>HTTP/1.0</td>
+<td>TCP</td>
+<td>Headers, content types, multiple methods (e.g., POST)</td>
+<td>Still one request per connection, causing latency</td>
+</tr>
+<tr>
+<td>HTTP/1.1</td>
+<td>TCP</td>
+<td>Persistent connections, chunked encoding, Host header</td>
+<td>Head-of-line blocking remains; multiple connections needed</td>
+</tr>
+<tr>
+<td>HTTP/2</td>
+<td>TCP</td>
+<td>Binary framing, multiplexing, header compression, server push</td>
+<td>Still subject to transport-layer HOL blocking</td>
+</tr>
+<tr>
+<td>HTTP/3</td>
+<td>QUIC (UDP)</td>
+<td>TLS 1.3 by default, stream-level multiplexing, faster handshakes</td>
+<td>Reduces HOL blocking and improves mobility &amp; reliability</td>
+</tr>
+</tbody>
+</table>
+<h2 id="takeaways">Takeaways</h2>
+<ul>
+<li>1.1 enabled the growth of shared hosting via the Host header.</li>
+<li>2 brought multiplexing but stayed on TCP.</li>
+<li>3 moved to QUIC to tackle transport-layer limitations.</li>
+</ul>
+</section></section>
+</main>
+<footer class="site-footer"><p>Robert, Amanda, Patrick: Group 8</p>
+<h2>HTTP/1.1 and the Web Boom</h2>
+<p>
+Released in 1997, HTTP/1.1 became the foundation of the modern web. It allowed persistent connections, chunked data transfer, and the use of host headers—making it possible for many websites to share one IP address. This version powered the growth of the internet during the early 2000s and remains widely used today.
+</p>
+</footer>
+</body></html>
