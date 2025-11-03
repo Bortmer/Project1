@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Self-Assessment Quiz — HTTP</title>
+  <!-- Reuse your site's stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Minimal additions to your existing styles for professional form UI */
+    .quiz-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+    .quiz-grid { display: grid; gap: 1rem; }
+    .quiz-grid.two-col { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px){ .quiz-grid.two-col { grid-template-columns: 1fr; } }
+    fieldset { border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+    legend { padding: 0 .4rem; color: var(--text); font-weight: 700; }
+    .q { margin-bottom: .75rem; }
+    .q label { display: block; margin: .35rem 0; cursor: pointer; }
+    .help { color: var(--muted); font-size: .95rem; }
+    .actions { display:flex; gap:.75rem; margin-top: 1rem; }
+    .btn { border: 1px solid var(--border); background: #0b1220; color: var(--text); padding: .6rem .9rem; border-radius: 10px; cursor: pointer; }
+    .btn:hover { filter: brightness(1.15); }
+    .result { margin-top: 1rem; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); }
+    .pass { background: rgba(16,185,129,.12); border-color: rgba(16,185,129,.35); }
+    .fail { background: rgba(239,68,68,.12); border-color: rgba(239,68,68,.35); }
+    .per-q { margin-top:.5rem; padding:.5rem .75rem; border-left: 4px solid var(--border); border-radius: 6px; }
+    .good { border-left-color: #10b981; }
+    .bad { border-left-color: #ef4444; }
+    .muted { color: var(--muted); font-size: .95rem; }
+    .answer { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <!-- Consistent top navigation -->
+  <nav class="site-nav">
+    <a class="logo" href="index.html">HTTP Research</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="history.html">History &amp; Versions</a></li>
+      <li><a href="performance.html">Performance</a></li>
+      <li><a href="privacy.html">Security &amp; Privacy</a></li>
+      <li><a href="concepts.html">Key Concepts</a></li>
+      <li><a href="references.html">References</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1>Self-Assessment Quiz — HTTP</h1>
+    <p class="help">Test what you learned about HTTP versions, performance, and security. Submit to see detailed feedback and your score.</p>
+
+    <form id="quizForm" class="quiz-card">
+      <!-- Q1: Fill-in-blank -->
+      <fieldset class="q">
+        <legend>1) Fill in the blank</legend>
+        <label for="q1">HTTP is a <em>__________</em> protocol where clients send requests and servers return responses.</label>
+        <input style="margin-top:.5rem;padding:.6rem;border-radius:8px;width:100%;border:1px solid var(--border);background:#0b1220;color:var(--text);" type="text" id="q1" name="q1" placeholder="your answer" autocomplete="off" required />
+        <p class="help">Hint: It does not store session state between requests.</p>
+      </fieldset>
+
+      <!-- Q2–Q4: Multiple-choice (single answer) -->
+      <div class="quiz-grid two-col">
+        <fieldset class="q">
+          <legend>2) Single-choice</legend>
+          <p>Which HTTP/2 feature primarily reduces latency for pages with many assets?</p>
+          <label><input type="radio" name="q2" value="a" /> Plain-text headers</label>
+          <label><input type="radio" name="q2" value="b" /> Multiplexing over one TCP connection</label>
+          <label><input type="radio" name="q2" value="c" /> Server-side templates</label>
+          <label><input type="radio" name="q2" value="d" /> FTP fallback</label>
+        </fieldset>
+
+        <fieldset class="q">
+          <legend>3) Single-choice</legend>
+          <p>HTTP/3 runs over which transport?</p>
+          <label><input type="radio" name="q3" value="a" /> TCP</label>
+          <label><input type="radio" name="q3" value="b" /> UDP with QUIC</label>
+          <label><input type="radio" name="q3" value="c" /> SCTP</label>
+          <label><input type="radio" name="q3" value="d" /> ICMP</label>
+        </fieldset>
+
+        <fieldset class="q">
+          <legend>4) Single-choice</legend>
+          <p>Which status code indicates a resource was <em>not found</em>?</p>
+          <label><input type="radio" name="q4" value="a" /> 200</label>
+          <label><input type="radio" name="q4" value="b" /> 301</label>
+          <label><input type="radio" name="q4" value="c" /> 404</label>
+          <label><input type="radio" name="q4" value="d" /> 500</label>
+        </fieldset>
+
+        <!-- Q5: Multi-select (checkboxes) -->
+        <fieldset class="q">
+          <legend>5) Multi-selection (choose all that apply)</legend>
+          <p>Which are benefits or properties of HTTP/3?</p>
+          <label><input type="checkbox" name="q5" value="a" /> Stream-level independence (less HOL blocking)</label>
+          <label><input type="checkbox" name="q5" value="b" /> Faster handshakes with built-in TLS 1.3</label>
+          <label><input type="checkbox" name="q5" value="c" /> Requires multiple parallel TCP connections</label>
+          <label><input type="checkbox" name="q5" value="d" /> Better performance on lossy or mobile networks</label>
+        </fieldset>
+      </div>
+
+      <div class="actions">
+        <button class="btn" type="submit">Submit Quiz</button>
+        <button class="btn" type="button" id="resetBtn">Reset</button>
+      </div>
+    </form>
+
+    <!-- Results will appear here -->
+    <section id="results" class="result" style="display:none;"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Robert, Amanda, Patrick: Group 8</p>
+  </footer>
+
+  <script>
+    // === Quiz logic ===
+    // Answer key (normalized lower-case)
+    const ANSWERS = {
+      q1: "stateless",                    // fill-in-blank
+      q2: "b",                            // multiplexing
+      q3: "b",                            // UDP with QUIC
+      q4: "c",                            // 404
+      q5: ["a","b","d"]                   // multi-select
+    };
+
+    // Compare multi-select irrespective of order
+    function arraysEqual(a, b){
+      if(!Array.isArray(a) || !Array.isArray(b)) return false;
+      if(a.length !== b.length) return false;
+      const A = [...a].sort(), B = [...b].sort();
+      for(let i=0;i<A.length;i++){ if(A[i] !== B[i]) return false; }
+      return true;
+    }
+
+    const form = document.getElementById("quizForm");
+    const results = document.getElementById("results");
+    const resetBtn = document.getElementById("resetBtn");
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const a1 = (document.getElementById("q1").value || "").trim().toLowerCase();
+      const a2 = (form.querySelector("input[name='q2']:checked") || {}).value || "";
+      const a3 = (form.querySelector("input[name='q3']:checked") || {}).value || "";
+      const a4 = (form.querySelector("input[name='q4']:checked") || {}).value || "";
+      const a5 = Array.from(form.querySelectorAll("input[name='q5']:checked")).map(x => x.value);
+
+      let score = 0;
+      const perQ = [];
+
+      const ok1 = a1 === ANSWERS.q1; if(ok1) score++;
+      perQ.push({ n:1, ok: ok1, your: a1 || "(blank)", correct: ANSWERS.q1 });
+
+      const ok2 = a2 === ANSWERS.q2; if(ok2) score++;
+      perQ.push({ n:2, ok: ok2, your: a2 || "(none)", correct: ANSWERS.q2 });
+
+      const ok3 = a3 === ANSWERS.q3; if(ok3) score++;
+      perQ.push({ n:3, ok: ok3, your: a3 || "(none)", correct: ANSWERS.q3 });
+
+      const ok4 = a4 === ANSWERS.q4; if(ok4) score++;
+      perQ.push({ n:4, ok: ok4, your: a4 || "(none)", correct: ANSWERS.q4 });
+
+      const ok5 = arraysEqual(a5, ANSWERS.q5); if(ok5) score++;
+      perQ.push({ n:5, ok: ok5, your: a5.length ? a5.join(", ") : "(none)", correct: ANSWERS.q5.join(", ") });
+
+      const total = 5;
+      const pct = Math.round((score / total) * 100);
+      const pass = pct >= 80; // Pass threshold
+
+      results.style.display = "block";
+      results.className = "result " + (pass ? "pass" : "fail");
+      results.innerHTML = `
+        <h2>Results</h2>
+        <p><strong>Total Score:</strong> ${score} / ${total} &nbsp;(<strong>${pct}%</strong>) — <strong>${pass ? "PASS" : "FAIL"}</strong></p>
+        <div class="muted">Breakdown by question:</div>
+        ${perQ.map(r => `
+          <div class="per-q ${r.ok ? "good" : "bad"}">
+            <div><strong>Q${r.n}:</strong> ${r.ok ? "Correct" : "Incorrect"}</div>
+            <div class="muted">Your answer: <span class="answer">${r.your}</span></div>
+            <div class="muted">Correct answer: <span class="answer">${r.correct}</span></div>
+          </div>
+        `).join("")}
+      `;
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Reset: clears inputs and hides results
+    resetBtn.addEventListener("click", function(){
+      form.reset();
+      results.style.display = "none";
+      results.className = "result";
+      results.innerHTML = "";
+      document.getElementById("q1").focus();
+    });
+  </script>
+</body>
+</html>
